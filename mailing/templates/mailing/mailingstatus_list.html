@@ -1,0 +1,21 @@
+{% extends 'mailing/base.html'%}
+{% block content %}
+<h1>Отчет проведенных рассылок</h1>
+{% for object in object_list %}
+<div class="row text-center">
+    <div class="col-4">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">номер {{ object.id }} статус {{ object.status_mailing }}</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                </ul>
+                <a class="btn btn-primary" role="button"
+                   href="{% url 'mailing:mailing_status_detail' object.pk %}">Посмотреть</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
