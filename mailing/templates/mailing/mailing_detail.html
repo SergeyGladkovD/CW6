@@ -1,0 +1,25 @@
+{% extends 'mailing/base.html'%}
+{% block content %}
+<div class="row text-center">
+    <div class="col-4">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">{{ object.end_date }}  статус {{ object.status }}</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                    <li>{{ object.start_date }}</li>
+                    <li>{{object.next_date}}</li>
+                    <li>{{object.end_date}}</li>
+                    <li>{{object.period}}</li>
+                    <li>{{object.status}}</li>
+                    <li>{{object.message}}</li>
+                     <li>{{object.client}}</li>
+                </ul>
+                 <a class="btn btn-success" role="button" href="{% url 'mailing:mailing_update' object.pk %}">Редактировать</a>
+                <a class="btn btn-danger" role="button" href="{% url 'mailing:mailing_delete' object.pk %} ">Удалить</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
