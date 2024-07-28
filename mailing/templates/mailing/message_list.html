@@ -1,6 +1,6 @@
 {% extends 'mailing/base.html'%}
 {% block content %}
- <a class="btn btn-primary" role="button" href="{% url 'mailing:mailing_create'%}">Создать письмо</a>
+ <a class="btn btn-primary" role="button" href="{% url 'mailing:message_create'%}">Создать письмо</a>
 {% for object in object_list %}
 <div class="row text-center">
     <div class="col-4">

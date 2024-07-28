@@ -11,6 +11,9 @@ django = "^5.0.7"
 psycopg2 = "^2.9.9"
 django-apscheduler = "^0.6.2"
 ipython = "^8.26.0"
+pillow = "^10.4.0"
+pytils = "  ^0.4.1"
+redis = "^5.0.7"
 
 
 [build-system]

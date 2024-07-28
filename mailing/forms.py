@@ -10,21 +10,29 @@ class StyleMixin:
             field.widget.attrs["class"] = "form-control"
 
 
-class ClientForm(forms.Form):
+class ClientForm(StyleMixin, forms.Form):
     class Meta:
         model = Client
+        exclude = ('owner',)
 
 
-class MessageForm(forms.Form):
+class MessageForm(StyleMixin, forms.Form):
     class Meta:
         model = Message
+        exclude = ('owner',)
 
 
-class MailingForm(forms.Form):
+class MailingForm(StyleMixin, forms.Form):
     class Meta:
         model = Mailing
 
 
-class MailingStatusForm(forms.Form):
+class MailingManagerForm(StyleMixin, forms.Form):
+    class Meta:
+        model = Mailing
+        fields = ('status',)
+
+
+class MailingStatusForm(StyleMixin, forms.Form):
     class Meta:
         model = MailingStatus
