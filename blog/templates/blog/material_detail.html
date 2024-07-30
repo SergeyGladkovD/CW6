@@ -1,0 +1,24 @@
+{% extends 'mailing/base.html' %}
+{% load my_tags %}
+{% block content %}
+<div class="row text-center">
+    <div class="col-4">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <div><img class="card-img-top" src="{{ product.image | media_filter }}"></div>
+                <h4 class="my-0 font-weight-normal">{{ object.title }}</h4>
+                <h4 class="my-0 font-weight-normal">{{ object.description }}</h4>
+                <h4 class="my-0 font-weight-normal">{{ object.views_count }}</h4>
+                <h4 class="my-0 font-weight-normal">{{ object.created_at }}</h4>
+            </div>
+            <div class="card-body">
+                <a class="btn btn-primary" role="button"
+                   href="{% url 'blog:list_blog' %}">Назад</a>
+            </div>
+            Просмотры: {{object.views}}
+        </div>
+        <div class="coll-6">
+        </div>
+    </div>
+    {% endblock %}
+</div>

@@ -13,7 +13,7 @@ from blog.models import Material
 
 class MaterialCreateView(CreateView):
     model = Material
-    fields = ("title", "description", "image", "views_count", "created_at")
+    fields = ("title", "description", "image", "views_count")
     success_url = reverse_lazy("blog:list_blog")
 
     def form_valid(self, form):
@@ -44,20 +44,20 @@ class MaterialUpdateView(UpdateView):
 class MaterialListView(ListView):
     model = Material
 
-    def get_queryset(self, *args, **kwargs):
-        queryset = super().get_queryset(*args, **kwargs)
-        queryset = queryset.filter(published=True)
-        return queryset
+    # def get_queryset(self, *args, **kwargs):
+    #     queryset = super().get_queryset(*args, **kwargs)
+    #     queryset = queryset.filter(published=True)
+    #     return queryset
 
 
 class MaterialDetailView(DetailView):
     model = Material
 
-    def get_object(self, queryset=None):
-        self.object = super().get_object(queryset)
-        self.object.views += 1
-        self.object.save()
-        return self.object
+    # def get_object(self, queryset=None):
+    #     self.object = super().get_object(queryset)
+    #     self.object.views += 1
+    #     self.object.save()
+    #     return self.object
 
 
 class MaterialDeleteView(DeleteView):

@@ -15,12 +15,15 @@
         <form method="post" action="{% url 'users:logout' %}">
             {% csrf_token %}
             <form method="post" action="/">
+                <a class="p-2 btn btn-outline-primary" href="{% url 'users:profile' user.pk %}">Профиль</a>
                 <button class="p-2 btn btn-outline-primary" type="submit">Выход</button>
                 <a class="p-2 btn btn-outline-primary" href="{% url 'mailing:home_page' %}">Главная страница</a>
-                <a class="p-2 btn btn-outline-primary" href="{% url 'mailing:mailing_status' %}">Отчет проведенных рассылок</a>
+                <a class="p-2 btn btn-outline-primary" href="{% url 'mailing:mailing_status' %}">Отчет проведенных
+                    рассылок</a>
                 <a class="p-2 btn btn-outline-primary" href="{% url 'mailing:mailing_list' %}">Список рассылок</a>
                 <a class="p-2 btn btn-outline-primary" href="{% url 'mailing:client_list' %}">Список клиентов</a>
                 <a class="p-2 btn btn-outline-primary" href="{% url 'mailing:message_list' %}">Список писем</a>
+                 <a class="p-2 btn btn-outline-primary" href="{% url 'blog:list_blog' %}">Список статей блога</a>
                 {% else %}
                 <a class="p-2 btn btn-outline-primary" href="{% url 'users:login' %}">Вход</a>
                 <a class="p-2 btn btn-outline-primary" href="{% url 'users:register' %}">Регистрация</a>
