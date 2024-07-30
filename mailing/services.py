@@ -6,7 +6,7 @@ from blog.models import Material
 
 def get_cached_blogs():
     if settings.CACHE_ENABLED:
-        key = 'blog_list'
+        key = "blog_list"
         blog_list = cache.get(key)
         if blog_list is None:
             blog_list = Material.objects.all()

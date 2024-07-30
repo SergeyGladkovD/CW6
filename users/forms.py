@@ -13,4 +13,4 @@ class UserRegisterForm(StyleMixin, UserCreationForm):
 class UserManagerForm(StyleMixin, UserCreationForm):
     class Meta:
         model = User
-        fields = ("email", )
+        fields = ("email",)

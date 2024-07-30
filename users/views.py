@@ -47,19 +47,24 @@ def send_message(request):
 
 class UserListView(PermissionRequiredMixin, ListView):
     model = User
-    permission_required = 'users.view_all_users'
+    permission_required = "users.view_all_users"
 
     def get_queryset(self):
         user = self.request.user
         if user.is_superuser:
             queryset = super().get_queryset().exclude(pk=user.pk)
         else:
-            queryset = super().get_queryset().exclude(pk=user.pk).exclude(is_superuser=True).exclude(is_staff=True)
+            queryset = (
+                super()
+                .get_queryset()
+                .exclude(pk=user.pk)
+                .exclude(is_superuser=True)
+                .exclude(is_staff=True)
+            )
         return queryset
 
 
-
-@permission_required('users.deactivate_user')
+@permission_required("users.deactivate_user")
 def toggle_activity(request, pk):
     user = User.objects.get(pk=pk)
     if user.is_active:
@@ -67,7 +72,7 @@ def toggle_activity(request, pk):
     else:
         user.is_active = True
     user.save()
-    return redirect(reverse('users:view_all_users'))
+    return redirect(reverse("users:view_all_users"))
 
 
 class UserDetailView(DetailView):
@@ -76,5 +81,5 @@ class UserDetailView(DetailView):
 
 class UserUpdateView(UpdateView):
     model = User
-    fields = ('email', 'avatar', 'phone', 'country')
-    success_url = reverse_lazy('users:login')
+    fields = ("email", "avatar", "phone", "country")
+    success_url = reverse_lazy("users:login")
