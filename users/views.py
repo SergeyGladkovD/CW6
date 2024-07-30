@@ -1,10 +1,11 @@
 import secrets
 
 from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView, UpdateView, ListView
 
 from config.settings import EMAIL_HOST_USER
 from users.forms import UserRegisterForm
@@ -44,6 +45,20 @@ def send_message(request):
     return render(request, "users/send_message.html")
 
 
+class UserListView(PermissionRequiredMixin, ListView):
+    model = User
+    permission_required = 'users.view_all_users'
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_superuser:
+            queryset = super().get_queryset().exclude(pk=user.pk)
+        else:
+            queryset = super().get_queryset().exclude(pk=user.pk).exclude(is_superuser=True).exclude(is_staff=True)
+        return queryset
+
+
+
 @permission_required('users.deactivate_user')
 def toggle_activity(request, pk):
     user = User.objects.get(pk=pk)
@@ -53,3 +68,13 @@ def toggle_activity(request, pk):
         user.is_active = True
     user.save()
     return redirect(reverse('users:view_all_users'))
+
+
+class UserDetailView(DetailView):
+    model = User
+
+
+class UserUpdateView(UpdateView):
+    model = User
+    fields = ('email', 'avatar', 'phone', 'country')
+    success_url = reverse_lazy('users:login')

@@ -42,6 +42,7 @@ class Message(models.Model):
     class Meta:
         verbose_name = "Сообщение"
         verbose_name_plural = "Сообщения"
+        permissions = ()
 
 
 class Mailing(models.Model):
@@ -62,6 +63,7 @@ class Mailing(models.Model):
         verbose_name_plural = "Рассылки"
         permissions = [
             ("can_disable_mailing", "Can disable mailing"),
+            ('view_all_mailings', 'Can view all mailings'),
         ]
 
 

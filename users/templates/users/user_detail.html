@@ -1,0 +1,42 @@
+{% extends 'mailing/base.html' %}
+{% block content %}
+<div class="col-12">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        Информация пользователя
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <td>Почта</td>
+                            <td>{{ object.email }}</td>
+                        </tr>
+                        <tr>
+                            <td>Телефон</td>
+                            <td>{{ object.phone }}</td>
+                        </tr>
+                        <tr>
+                            <td>Страна</td>
+                            <td>{{ object.country }}</td>
+                        </tr>
+                        <tr>
+                            <td>Аватар</td>
+                            <td>{{ object.avatar }}</td>
+                        </tr>
+                    </table>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                        </ul>
+                        <a class="btn btn-success" role="button" href="{% url 'users:update_profile' user.pk %}">Редактировать профиль</a>
+                    </div>
+                </div>
+                <div class="card-footer"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
