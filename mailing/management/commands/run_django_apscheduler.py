@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 def my_job():
     scheduler = BackgroundScheduler()
-    scheduler.add_job(send_mailing, 'interval', seconds=30)
+    scheduler.add_job(send_mailing, "interval", seconds=30)
     scheduler.start()
 
 
@@ -29,19 +29,26 @@ def send_mailing():
     weak = timedelta(days=7, hours=0, minutes=0)
     month = timedelta(days=30, hours=0, minutes=0)
     zone = pytz.timezone(settings.TIME_ZONE)
-    current_datetime = datetime.now(zone)  # Получаем текущее дату и время с учетом таймзоны.
+    current_datetime = datetime.now(
+        zone
+    )  # Получаем текущее дату и время с учетом таймзоны.
     # создание объекта с применением фильтра
-    mailings = Mailing.objects.filter(status='created', start_date__lte=current_datetime,
-                                      end_date__gte=current_datetime)
+    mailings = Mailing.objects.filter(
+        status="created",
+        start_date__lte=current_datetime,
+        end_date__gte=current_datetime,
+    )
 
     for mailing in mailings:  # Отправляем рассылку всем клиентам.
-        mailing.status = 'start'
+        mailing.status = "start"
         mailing.save()
-        server_response = send_mail(subject=mailing.message.topic_letter,
-                                    message=mailing.message.body_letter,
-                                    from_email=settings.EMAIL_HOST_USER,
-                                    recipient_list=[client.email for client in mailing.client.all()],
-                                    fail_silently=False)
+        server_response = send_mail(
+            subject=mailing.message.topic_letter,
+            message=mailing.message.body_letter,
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[client.email for client in mailing.client.all()],
+            fail_silently=False,
+        )
         if server_response:
             status = "Отправлено"
         else:
@@ -105,9 +112,7 @@ class Command(BaseCommand):
             max_instances=1,
             replace_existing=True,
         )
-        logger.info(
-            "Added weekly job: 'delete_old_job_executions'."
-        )
+        logger.info("Added weekly job: 'delete_old_job_executions'.")
 
         try:
             logger.info("Starting scheduler...")
